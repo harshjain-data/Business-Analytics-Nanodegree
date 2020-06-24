@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/hjain.GARTNER/Downloads/chinook.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="150"/><column_width id="3" width="5349"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainArtist"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Album" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="1" mode="0"/></sort><column_widths><column index="1" value="100"/><column index="2" value="300"/><column index="3" value="90"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Artist" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="90"/><column index="2" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">/*SELECT count(*) as NumOfPurchases, g.Name 
+from Genre g JOIN Track t on g.GenreId=t.GenreId
+JOIN InvoiceLine l on t.TrackId= l.TrackId GROUP by g.GenreId ORDER by NumOfPurchases DESC; */
+
+/*SELECT ar.ArtistId, ar.Name AS artist_name, SUM(il.UnitPrice * il.Quantity) AS earned
+FROM Artist ar JOIN Album al ON ar.ArtistId = al.ArtistId
+JOIN Track t ON al.AlbumId = t.AlbumId
+JOIN InvoiceLine il ON t.TrackId = il.TrackId
+GROUP BY ar.ArtistId, artist_name ORDER BY earned DESC limit 5;*/
+
+/*SELECT ar.ArtistId, ar.Name, count(al.AlbumId) as album_count
+FROM Artist ar JOIN Album al on ar.ArtistId=al.ArtistId
+JOIN Track t on al.AlbumId =t.TrackId 
+GROUP by ar.ArtistId, ar.Name ORDER by album_count DESC;*/
+
+/*SELECT ar.Name AS Artist_Name , sum(il.UnitPrice*il.Quantity)AS Song_Cost
+FROM Invoice i JOIN InvoiceLine il ON i.invoiceId = il.InvoiceId
+Join Customer c On i.CustomerId = c.CustomerId
+JOIN Track t ON t.trackId = il.TrackId
+JOIN Album al ON al.AlbumId= t.AlbumId
+JOIN Artist ar ON ar.ArtistId= al.ArtistId
+GROUP BY ar.Name order by Song_cost desc LIMIT 10;*/
+SELECT ar.ArtistId, ar.Name AS artist_name, SUM(il.Quantity) AS tracks_count, SUM(il.UnitPrice*il.Quantity) AS earned
+FROM Artist ar JOIN Album al ON ar.ArtistId = al.ArtistId
+JOIN Track t ON al.AlbumId = t.AlbumId
+JOIN InvoiceLine il ON t.TrackId = il.TrackId
+GROUP BY ar.ArtistId, artist_name ORDER BY earned DESC;
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
