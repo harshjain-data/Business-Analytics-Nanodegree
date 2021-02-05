@@ -1,2 +1,2 @@
 # Business-Analytics-Nanodegree
- Repository for Business Analytics Nanodegree by Udacity
+ Repository for my projects of Business Analytics Nanodegree (Udacity)
